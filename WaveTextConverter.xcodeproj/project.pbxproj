@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		636EC0442A3819A4008E0AD9 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 636EC0432A3819A4008E0AD9 /* ArgumentParser */; };
 		636F8FC92A372C9600EE709E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636F8FC82A372C9600EE709E /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,17 +33,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				636EC0442A3819A4008E0AD9 /* ArgumentParser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		636EC0422A3819A4008E0AD9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		636F8FBC2A372C9600EE709E = {
 			isa = PBXGroup;
 			children = (
 				636F8FC72A372C9600EE709E /* WaveTextConverter */,
 				636F8FC62A372C9600EE709E /* Products */,
+				636EC0422A3819A4008E0AD9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,6 +88,9 @@
 			dependencies = (
 			);
 			name = WaveTextConverter;
+			packageProductDependencies = (
+				636EC0432A3819A4008E0AD9 /* ArgumentParser */,
+			);
 			productName = WaveTextConverter;
 			productReference = 636F8FC52A372C9600EE709E /* WaveTextConverter */;
 			productType = "com.apple.product-type.tool";
@@ -106,6 +119,9 @@
 				Base,
 			);
 			mainGroup = 636F8FBC2A372C9600EE709E;
+			packageReferences = (
+				636EC0412A381997008E0AD9 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
+			);
 			productRefGroup = 636F8FC62A372C9600EE709E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -284,6 +300,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		636EC0412A381997008E0AD9 /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		636EC0432A3819A4008E0AD9 /* ArgumentParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 636EC0412A381997008E0AD9 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+			productName = ArgumentParser;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 636F8FBD2A372C9600EE709E /* Project object */;
 }
