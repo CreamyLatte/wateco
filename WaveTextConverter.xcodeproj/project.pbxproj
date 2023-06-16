@@ -10,7 +10,7 @@
 		632B35042A3CA4620064A72E /* CLTOutputFileOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B35032A3CA4620064A72E /* CLTOutputFileOptions.swift */; };
 		636EC0442A3819A4008E0AD9 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 636EC0432A3819A4008E0AD9 /* ArgumentParser */; };
 		636EC0482A3C8045008E0AD9 /* CLTInputFileOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636EC0472A3C8045008E0AD9 /* CLTInputFileOptions.swift */; };
-		636F8FC92A372C9600EE709E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636F8FC82A372C9600EE709E /* main.swift */; };
+		636F8FC92A372C9600EE709E /* Wateco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636F8FC82A372C9600EE709E /* Wateco.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,7 +29,7 @@
 		632B35032A3CA4620064A72E /* CLTOutputFileOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLTOutputFileOptions.swift; sourceTree = "<group>"; };
 		636EC0472A3C8045008E0AD9 /* CLTInputFileOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLTInputFileOptions.swift; sourceTree = "<group>"; };
 		636F8FC52A372C9600EE709E /* wateco */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = wateco; sourceTree = BUILT_PRODUCTS_DIR; };
-		636F8FC82A372C9600EE709E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		636F8FC82A372C9600EE709E /* Wateco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wateco.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +71,7 @@
 		636F8FC72A372C9600EE709E /* WaveTextConverter */ = {
 			isa = PBXGroup;
 			children = (
-				636F8FC82A372C9600EE709E /* main.swift */,
+				636F8FC82A372C9600EE709E /* Wateco.swift */,
 				636EC0472A3C8045008E0AD9 /* CLTInputFileOptions.swift */,
 				632B35032A3CA4620064A72E /* CLTOutputFileOptions.swift */,
 			);
@@ -144,7 +144,7 @@
 			files = (
 				636EC0482A3C8045008E0AD9 /* CLTInputFileOptions.swift in Sources */,
 				632B35042A3CA4620064A72E /* CLTOutputFileOptions.swift in Sources */,
-				636F8FC92A372C9600EE709E /* main.swift in Sources */,
+				636F8FC92A372C9600EE709E /* Wateco.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
