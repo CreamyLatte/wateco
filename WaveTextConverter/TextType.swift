@@ -6,7 +6,11 @@
 //
 
 import Foundation
+import ArgumentParser
 
 enum TextType: String {
     case txt, dat, csv
+}
+
+extension TextType: CaseIterable, ExpressibleByArgument {
 }
