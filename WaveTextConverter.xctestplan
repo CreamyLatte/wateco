@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "432688E2-7DF9-44EB-84FF-D003D65CC0D7",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "-h",
+        "enabled" : false
+      },
+      {
+        "argument" : "-v"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:WaveTextConverter.xcodeproj",
+      "identifier" : "636F8FC42A372C9600EE709E",
+      "name" : "wateco"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:WaveTextConverter.xcodeproj",
+        "identifier" : "63DCB8052A400EA2005F68AF",
+        "name" : "Test"
+      }
+    }
+  ],
+  "version" : 1
+}
