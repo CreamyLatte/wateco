@@ -18,13 +18,13 @@ struct Wateco: ParsableCommand {
             """,
             version: "1.0.0",
             shouldDisplay: true,
-            subcommands: [WaveTo.self, TextTo.self],
+            subcommands: [ToText.self, ToWave.self],
             helpNames: [.long, .short])
     
 }
 
 extension Wateco {
-    struct WaveTo: ParsableCommand {
+    struct ToText: ParsableCommand {
         static let configuration = CommandConfiguration(abstract: "Convert audio file to text format")
 
         @OptionGroup var outputFile: OutputFile
@@ -37,7 +37,7 @@ extension Wateco {
 }
 
 extension Wateco {
-    struct TextTo: ParsableCommand {
+    struct ToWave: ParsableCommand {
         static let configuration = CommandConfiguration(abstract: "Convert text file to audio format")
         
         @OptionGroup var outputFile: OutputFile
