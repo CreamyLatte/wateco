@@ -73,8 +73,50 @@ extension Wateco {
     struct ToWave: ParsableCommand {
         static let configuration = CommandConfiguration(abstract: "Convert text file to audio format")
         
+        @Option(name: .customLong("format"),
+                parsing: .next,
+                help: ArgumentHelp("Write output to <audio-format>", valueName: "audio-format"))
+        var writeAudioFormat: AVFormat = .wav
+        
+        @Option(parsing: .next,
+                help: ArgumentHelp("Write output to <pcm-format>", valueName: "pcm-format"))
+        var pcmFormat: PCMFormat = .int16
+        
+        @Option(parsing: .next)
+        var samplingRate: Double = 44100
+        
+        @Option(parsing: .next)
+        var channel: Int = 1
+        
         @OptionGroup var outputFile: OutputFile
         @OptionGroup var inputFile: InputFile
+        
+        mutating func validate() throws {
+            let inputFileExtention = inputFile.url.pathExtension
+            let supportedExtensions = TextType.allCases.map({ $0.rawValue })
+            guard supportedExtensions.contains(inputFileExtention) else {
+                throw ValidationError("Unsupported file extension '.\(inputFileExtention)'. Please use one of the following extensions: '\(supportedExtensions.map({"." + $0}).joined(separator: ", "))'.")
+            }
+            
+            if outputFile.url == nil {
+                let fileManager = FileManager.default
+                let inputFileName: String = inputFile.url.deletingPathExtension().lastPathComponent
+                outputFile.url = URL(fileURLWithPath: inputFileName).appendingPathExtension(writeAudioFormat.rawValue)
+                
+                guard let url = outputFile.url else {
+                    throw ValidationError("Failed to create the output file path.")
+                }
+                let writeDirectory = url.deletingLastPathComponent()
+                guard fileManager.isWritableFile(atPath: writeDirectory.path) else {
+                    throw ValidationError("'Cannot write to \(url.path)'. Please check permissions.")
+                }
+            }
+        }
+        mutating func run() {
+            print("inputFile: \(inputFile.url.path)")
+            print("write mode: \(writeAudioFormat.rawValue), \(pcmFormat.rawValue), \(samplingRate), \(channel)")
+            print("outputFile: \(outputFile.url?.path ?? "(null)")")
+        }
     }
 }
 
