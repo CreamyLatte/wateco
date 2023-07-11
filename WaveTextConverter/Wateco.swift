@@ -26,12 +26,45 @@ struct Wateco: ParsableCommand {
 extension Wateco {
     struct ToText: ParsableCommand {
         static let configuration = CommandConfiguration(abstract: "Convert audio file to text format")
+        
+        @Option(name: .customLong("write-type"),
+                parsing: .next,
+                help: ArgumentHelp("Write output to <type>", valueName: "type"))
+        var writeTextType: TextType = .txt
+        
+        @Option(parsing: .next,
+                help: ArgumentHelp("Write output to <pcm-format>", valueName: "pcm-format"))
+        var pcmFormat: PCMFormat? = nil
 
         @OptionGroup var outputFile: OutputFile
         @OptionGroup var inputFile: InputFile
         
+        mutating func validate() throws {
+            let inputFileExtention = inputFile.url.pathExtension
+            let supportedExtensions = AVFormat.allCases.map({ $0.rawValue })
+            guard supportedExtensions.contains(inputFileExtention) else {
+                throw ValidationError("Unsupported file extension '.\(inputFileExtention)'. Please use one of the following extensions: '\(supportedExtensions.map({"." + $0}).joined(separator: ", "))'.")
+            }
+            
+            if outputFile.url == nil {
+                let fileManager = FileManager.default
+                let inputFileName: String = inputFile.url.deletingPathExtension().lastPathComponent
+                outputFile.url = URL(fileURLWithPath: inputFileName).appendingPathExtension(writeTextType.rawValue)
+                
+                guard let url = outputFile.url else {
+                    throw ValidationError("Failed to create the output file path.")
+                }
+                let writeDirectory = url.deletingLastPathComponent()
+                guard fileManager.isWritableFile(atPath: writeDirectory.path) else {
+                    throw ValidationError("'Cannot write to \(url.path)'. Please check permissions.")
+                }
+            }
+        }
+        
         mutating func run() {
-            print(inputFile.url)
+            print("inputFile: \(inputFile.url.path)")
+            print("write mode: \(writeTextType.rawValue), \(pcmFormat?.rawValue ?? "default")")
+            print("outputFile: \(outputFile.url?.path ?? "(null)")")
         }
     }
 }
