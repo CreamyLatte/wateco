@@ -25,7 +25,8 @@ struct OutputFile: ParsableArguments {
             }
             return
         }
-        guard fileManager.isWritableFile(atPath: outputFile.path) else {
+        let writeDirectory = outputFile.deletingLastPathComponent()
+        guard fileManager.isWritableFile(atPath: writeDirectory.path) else {
             throw ValidationError("'Cannot write to \(outputFile.path)'. Please check permissions.")
         }
     }
