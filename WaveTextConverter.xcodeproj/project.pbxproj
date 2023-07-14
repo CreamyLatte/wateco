@@ -13,6 +13,7 @@
 		636EC0442A3819A4008E0AD9 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 636EC0432A3819A4008E0AD9 /* ArgumentParser */; };
 		636EC0482A3C8045008E0AD9 /* CLTInputFileOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636EC0472A3C8045008E0AD9 /* CLTInputFileOptions.swift */; };
 		636F8FC92A372C9600EE709E /* Wateco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636F8FC82A372C9600EE709E /* Wateco.swift */; };
+		638D1DB12A60FC0A00EF0774 /* AudioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638D1DB02A60FC0A00EF0774 /* AudioData.swift */; };
 		63DCB7FB2A3F53FA005F68AF /* PCMFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCB7FA2A3F53FA005F68AF /* PCMFormat.swift */; };
 		63DCB8092A400EA2005F68AF /* WatecoExampleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCB8082A400EA2005F68AF /* WatecoExampleTest.swift */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,7 @@
 		636EC0472A3C8045008E0AD9 /* CLTInputFileOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLTInputFileOptions.swift; sourceTree = "<group>"; };
 		636F8FC52A372C9600EE709E /* wateco */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = wateco; sourceTree = BUILT_PRODUCTS_DIR; };
 		636F8FC82A372C9600EE709E /* Wateco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wateco.swift; sourceTree = "<group>"; };
+		638D1DB02A60FC0A00EF0774 /* AudioData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioData.swift; sourceTree = "<group>"; };
 		63DCB7FA2A3F53FA005F68AF /* PCMFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCMFormat.swift; sourceTree = "<group>"; };
 		63DCB8062A400EA2005F68AF /* Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DCB8082A400EA2005F68AF /* WatecoExampleTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatecoExampleTest.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				632B35072A3D2DF40064A72E /* AVFormat.swift */,
 				636EC0472A3C8045008E0AD9 /* CLTInputFileOptions.swift */,
 				632B35032A3CA4620064A72E /* CLTOutputFileOptions.swift */,
+				638D1DB02A60FC0A00EF0774 /* AudioData.swift */,
 			);
 			path = WaveTextConverter;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				638D1DB12A60FC0A00EF0774 /* AudioData.swift in Sources */,
 				632B35062A3D12340064A72E /* TextType.swift in Sources */,
 				63DCB7FB2A3F53FA005F68AF /* PCMFormat.swift in Sources */,
 				636EC0482A3C8045008E0AD9 /* CLTInputFileOptions.swift in Sources */,
