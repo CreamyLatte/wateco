@@ -34,7 +34,7 @@ extension Wateco {
         
         @Option(parsing: .next,
                 help: ArgumentHelp("Write output to <pcm-format>", valueName: "pcm-format"))
-        var pcmFormat: PCMFormat? = nil
+        var pcmFormat: PCMFormat = .int16
 
         @OptionGroup var outputFile: OutputFile
         @OptionGroup var inputFile: InputFile
@@ -63,7 +63,7 @@ extension Wateco {
         
         mutating func run() {
             print("inputFile: \(inputFile.url.path)")
-            print("write mode: \(writeTextType.rawValue), \(pcmFormat?.rawValue ?? "default")")
+            print("write mode: \(writeTextType.rawValue), \(pcmFormat.rawValue)")
             print("outputFile: \(outputFile.url?.path ?? "(null)")")
         }
     }
