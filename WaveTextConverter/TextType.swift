@@ -13,4 +13,18 @@ enum TextType: String {
 }
 
 extension TextType: CaseIterable, ExpressibleByArgument {
+    var valueSeparator: String {
+        switch self {
+        case .txt, .dat:
+            return "\n"
+        case .csv:
+            return ","
+        }
+    }
+    var lineSeparator: String {
+        switch self {
+        case .txt, .dat, .csv:
+            return "\n"
+        }
+    }
 }
