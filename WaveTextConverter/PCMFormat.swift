@@ -11,7 +11,8 @@ import ArgumentParser
 
 enum PCMFormat: String {
     case float32
-    case float64
+    // pcmBuffe未対応のため
+//    case float64
     case int16
     case int32
     
@@ -19,8 +20,9 @@ enum PCMFormat: String {
         switch self {
         case .float32:
             return .pcmFormatFloat32
-        case .float64:
-            return .pcmFormatFloat64
+        // pcmBuffe未対応のため
+//        case .float64:
+//            return .pcmFormatFloat64
         case .int16:
             return .pcmFormatInt16
         case .int32:

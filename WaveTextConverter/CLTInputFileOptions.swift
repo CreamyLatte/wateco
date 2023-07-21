@@ -17,6 +17,9 @@ struct InputFile: ParsableArguments {
     
     mutating func validate() throws {
         let fileManager = FileManager.default
+        guard fileManager.fileExists(atPath: url.path) else {
+            throw ValidationError("'\(url.path)' not found.")
+        }
         guard fileManager.isReadableFile(atPath: url.path) else {
             throw ValidationError("'\(url.path)' does not exist or cannot be read. Please check permissions.")
         }

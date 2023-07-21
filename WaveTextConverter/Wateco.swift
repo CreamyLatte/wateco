@@ -7,19 +7,20 @@
 
 import Foundation
 import ArgumentParser
+import AVFAudio
 
 @main
 struct Wateco: ParsableCommand {
     static let configuration = CommandConfiguration(
-            commandName: "wateco",
-            abstract: "Conversion tool for audio and text data",
-            discussion: """
+        commandName: "wateco",
+        abstract: "Conversion tool for audio and text data",
+        discussion: """
             This application can convert from audio file to text format or from text file to audio format.
             """,
-            version: "1.0.0",
-            shouldDisplay: true,
-            subcommands: [ToText.self, ToWave.self],
-            helpNames: [.long, .short])
+        version: "1.0.0",
+        shouldDisplay: true,
+        subcommands: [ToText.self, ToWave.self],
+        helpNames: [.long, .short])
     
 }
 
@@ -34,8 +35,8 @@ extension Wateco {
         
         @Option(parsing: .next,
                 help: ArgumentHelp("Write output to <pcm-format>", valueName: "pcm-format"))
-        var pcmFormat: PCMFormat? = nil
-
+        var pcmFormat: PCMFormat = .int16
+        
         @OptionGroup var outputFile: OutputFile
         @OptionGroup var inputFile: InputFile
         
@@ -61,10 +62,40 @@ extension Wateco {
             }
         }
         
-        mutating func run() {
-            print("inputFile: \(inputFile.url.path)")
-            print("write mode: \(writeTextType.rawValue), \(pcmFormat?.rawValue ?? "default")")
-            print("outputFile: \(outputFile.url?.path ?? "(null)")")
+        mutating func run() throws {
+            let audioFile = try AVAudioFile(forReading: inputFile.url, commonFormat: pcmFormat.audioCommonFormat, interleaved: false)
+            let audioFormat = audioFile.processingFormat
+            let audioChannelCount: Int = Int(audioFormat.channelCount)
+            let audioLength: Int = Int(audioFile.length)
+            guard let buffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: AVAudioFrameCount(audioLength)) else {
+                fatalError("Failed to create AVAudioPCMBuffer.")
+            }
+            
+            try audioFile.read(into: buffer)
+            
+            var lines = Array<String>()
+            for i in 0..<audioLength {
+                var line = Array<String>()
+                for j in 0..<audioChannelCount {
+                    switch pcmFormat {
+                    case .float32:
+                        line.append(String(buffer.floatChannelData![j][i]))
+                    case .int16:
+                        line.append(String(buffer.int16ChannelData![j][i]))
+                    case .int32:
+                        line.append(String(buffer.int32ChannelData![j][i]))
+                    }
+                }
+                lines.append(line.joined(separator: writeTextType.valueSeparator))
+            }
+            
+            guard let data = lines.joined(separator: writeTextType.lineSeparator).data(using: .utf8) else {
+                fatalError("Failed to convert data.")
+            }
+            guard let url = outputFile.url else {
+                fatalError("Output file not specified.")
+            }
+            try data.write(to: url)
         }
     }
 }
