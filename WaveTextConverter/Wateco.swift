@@ -116,8 +116,8 @@ extension Wateco {
         @Option(parsing: .next)
         var samplingRate: Double = 44100
         
-        @Option(parsing: .next)
-        var channel: Int = 1
+        @Option(name: .customLong("channel"), parsing: .next)
+        var channelCount: Int = 1
         
         @OptionGroup var outputFile: OutputFile
         @OptionGroup var inputFile: InputFile
