@@ -116,8 +116,8 @@ extension Wateco {
         @Option(parsing: .next)
         var samplingRate: Double = 44100
         
-        @Option(parsing: .next)
-        var channel: Int = 1
+        @Option(name: .customLong("channel"), parsing: .next)
+        var channelCount: Int = 1
         
         @OptionGroup var outputFile: OutputFile
         @OptionGroup var inputFile: InputFile
@@ -143,11 +143,67 @@ extension Wateco {
                 }
             }
         }
-        mutating func run() {
-            print("inputFile: \(inputFile.url.path)")
-            print("write mode: \(writeAudioFormat.rawValue), \(pcmFormat.rawValue), \(samplingRate), \(channel)")
-            print("outputFile: \(outputFile.url?.path ?? "(null)")")
+        func bufferWriter<T: LosslessStringConvertible>(stringValueData: [String], bufferChannelData: UnsafePointer<UnsafeMutablePointer<T>>) {
+            let valueData: [T] = stringValueData.map { text in
+                guard let value = T(text) else {
+                    fatalError("Contains values that cannot be converted to type \(T.self).")
+                }
+                return value
+            }
+            for (i, value) in valueData.enumerated() {
+                let (sample, channel) = i.quotientAndRemainder(dividingBy: channelCount)
+                bufferChannelData[channel][sample] = value
+            }
         }
+        
+        mutating func run() throws {
+            let textData = try String(contentsOf: inputFile.url)
+            var valueData = textData.components(separatedBy: CharacterSet(charactersIn: "\n,"))
+            valueData.removeAll(where: { $0.isEmpty })
+            let valueDataLength = valueData.count / channelCount
+            
+            guard let audioFormat = AVAudioFormat(commonFormat: pcmFormat.audioCommonFormat, sampleRate: samplingRate, channels: AVAudioChannelCount(channelCount), interleaved: false) else {
+                fatalError("Failed to create AudioFormat.")
+            }
+            guard let pcmBuffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: AVAudioFrameCount(valueDataLength)) else {
+                fatalError("Failed to create AVAudioPCMBuffer.")
+            }
+            pcmBuffer.frameLength = AVAudioFrameCount(valueDataLength)
+            
+            switch pcmFormat {
+            case .float32:
+                guard let floatChannelData = pcmBuffer.floatChannelData else {
+                    fatalError("Failed to create AVAudioPCMBuffer floatChannelData.")
+                }
+                bufferWriter(stringValueData: valueData, bufferChannelData: floatChannelData)
+            case .int16:
+                guard let int16ChannelData = pcmBuffer.int16ChannelData else {
+                    fatalError("Failed to create AVAudioPCMBuffer int16ChannelData.")
+                }
+                bufferWriter(stringValueData: valueData, bufferChannelData: int16ChannelData)
+            case .int32:
+                guard let int32ChannelData = pcmBuffer.int32ChannelData else {
+                    fatalError("Failed to create AVAudioPCMBuffer int32ChannelData.")
+                }
+                bufferWriter(stringValueData: valueData, bufferChannelData: int32ChannelData)
+            }
+            
+            do {
+                let audioSettings: [String: Any] = [
+                    "AVFormatIDKey": writeAudioFormat.audioFormatID,
+                    "AVSampleRateKey": samplingRate,
+                    "AVNumberOfChannelsKey": channelCount
+                ]
+                guard let writingURL = outputFile.url else {
+                    throw ValidationError("Failed to create the output file path.")
+                }
+                let audioFile = try AVAudioFile(forWriting: writingURL, settings: audioSettings, commonFormat: audioFormat.commonFormat , interleaved: true)
+                
+                try audioFile.write(from: pcmBuffer)
+            }
+            
+        }
+        
     }
 }
 

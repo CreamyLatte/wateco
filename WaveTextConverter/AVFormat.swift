@@ -15,7 +15,6 @@ enum AVFormat: String {
     case appleLossless = "alac"
     case aac
     case m4a
-    case mp3
     
     var audioFormatID: AudioFormatID {
         switch self {
@@ -27,8 +26,6 @@ enum AVFormat: String {
             return kAudioFormatAppleLossless
         case .aac, .m4a:
             return kAudioFormatMPEG4AAC
-        case .mp3:
-            return kAudioFormatMPEGLayer3
         }
     }
 }
