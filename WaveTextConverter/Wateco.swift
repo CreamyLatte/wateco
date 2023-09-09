@@ -89,7 +89,7 @@ extension Wateco {
                 lines.append(line.joined(separator: writeTextType.valueSeparator))
             }
             
-            guard let data = lines.joined(separator: writeTextType.lineSeparator).data(using: .utf8) else {
+            guard let data = lines.joined(separator: writeTextType.lineTerminator).data(using: .utf8) else {
                 fatalError("Failed to convert data.")
             }
             guard let url = outputFile.url else {
