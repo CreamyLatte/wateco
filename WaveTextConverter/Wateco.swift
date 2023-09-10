@@ -22,6 +22,8 @@ struct Wateco: ParsableCommand {
         subcommands: [ToText.self, ToWave.self],
         helpNames: [.long, .short])
     
+    static let audioBufferFrameCapacity: AVAudioFrameCount = 1024
+    
 }
 
 extension Wateco {
@@ -62,40 +64,78 @@ extension Wateco {
             }
         }
         
+        private func setReadBuffer(buffer: AVAudioPCMBuffer) -> (Int, Int) -> String {
+            switch pcmFormat {
+            case .float32:
+                guard let channelData = buffer.floatChannelData else {
+                    break
+                }
+                return { j, i in
+                    String(channelData[j][i])
+                }
+            case .int16:
+                guard let channelData = buffer.int16ChannelData else {
+                    break
+                }
+                return { j, i in
+                    String(channelData[j][i])
+                }
+            case .int32:
+                guard let channelData = buffer.int32ChannelData else {
+                    break
+                }
+                return { j, i in
+                    String(channelData[j][i])
+                }
+            }
+            fatalError("Buffer was not allocated correctly.")
+        }
+        
         mutating func run() throws {
             let audioFile = try AVAudioFile(forReading: inputFile.url, commonFormat: pcmFormat.audioCommonFormat, interleaved: false)
             let audioFormat = audioFile.processingFormat
             let audioChannelCount: Int = Int(audioFormat.channelCount)
             let audioLength: Int = Int(audioFile.length)
-            guard let buffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: AVAudioFrameCount(audioLength)) else {
+            guard let buffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: audioBufferFrameCapacity) else {
                 fatalError("Failed to create AVAudioPCMBuffer.")
             }
             
-            try audioFile.read(into: buffer)
-            
-            var lines = Array<String>()
-            for i in 0..<audioLength {
-                var line = Array<String>()
-                for j in 0..<audioChannelCount {
-                    switch pcmFormat {
-                    case .float32:
-                        line.append(String(buffer.floatChannelData![j][i]))
-                    case .int16:
-                        line.append(String(buffer.int16ChannelData![j][i]))
-                    case .int32:
-                        line.append(String(buffer.int32ChannelData![j][i]))
-                    }
-                }
-                lines.append(line.joined(separator: writeTextType.valueSeparator))
-            }
-            
-            guard let data = lines.joined(separator: writeTextType.lineTerminator).data(using: .utf8) else {
-                fatalError("Failed to convert data.")
-            }
-            guard let url = outputFile.url else {
+            guard let writingURL = outputFile.url else {
                 fatalError("Output file not specified.")
             }
-            try data.write(to: url)
+            let writingFileHandle = try FileHandle(forWritingTo: writingURL)
+            defer {
+                do {
+                    try writingFileHandle.close()
+                } catch {
+                    fatalError("The file could not be closed successfully.")
+                }
+            }
+            
+            let readBuffer: (Int, Int) -> String = setReadBuffer(buffer: buffer)
+            
+            var writingFrameCount = 0
+            var restLength: AVAudioFrameCount {
+                return UInt32(audioLength - writingFrameCount)
+            }
+            while writingFrameCount < audioLength {
+                try audioFile.read(into: buffer)
+                var text = String()
+                let readLength: Int = Int(restLength < audioBufferFrameCapacity ? restLength : audioBufferFrameCapacity)
+                for i in 0..<readLength {
+                    var line = Array<String>()
+                    for j in 0..<audioChannelCount {
+                        line.append(readBuffer(j, i))
+                    }
+                    text.append(line.joined(separator: writeTextType.valueSeparator) + writeTextType.lineTerminator)
+                }
+                
+                guard let data = text.data(using: .utf8) else {
+                    fatalError("Failed to convert data.")
+                }
+                try writingFileHandle.write(contentsOf: data)
+                writingFrameCount += readLength
+            }
         }
     }
 }
