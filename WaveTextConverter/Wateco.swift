@@ -228,19 +228,19 @@ extension Wateco {
                 bufferWriter(stringValueData: valueData, bufferChannelData: int32ChannelData)
             }
             
-            do {
-                let audioSettings: [String: Any] = [
-                    "AVFormatIDKey": writeAudioFormat.audioFormatID,
-                    "AVSampleRateKey": samplingRate,
-                    "AVNumberOfChannelsKey": channelCount
-                ]
-                guard let writingURL = outputFile.url else {
-                    throw ValidationError("Failed to create the output file path.")
-                }
-                let audioFile = try AVAudioFile(forWriting: writingURL, settings: audioSettings, commonFormat: audioFormat.commonFormat , interleaved: true)
-                
-                try audioFile.write(from: pcmBuffer)
+            let audioSettings: [String: Any] = [
+                "AVFormatIDKey": writeAudioFormat.audioFormatID,
+                "AVSampleRateKey": samplingRate,
+                "AVNumberOfChannelsKey": channelCount
+            ]
+            guard let writingURL = outputFile.url else {
+                throw ValidationError("Failed to create the output file path.")
             }
+            let isInterleaved = pcmBuffer.format.isInterleaved
+            let audioFile = try AVAudioFile(forWriting: writingURL, settings: audioSettings, commonFormat: audioFormat.commonFormat, interleaved: isInterleaved)
+            
+            try audioFile.write(from: pcmBuffer)
+            
             
         }
         
