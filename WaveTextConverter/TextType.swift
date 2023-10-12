@@ -21,7 +21,7 @@ extension TextType: CaseIterable, ExpressibleByArgument {
             return ","
         }
     }
-    var lineSeparator: String {
+    var lineTerminator: String {
         switch self {
         case .txt, .dat, .csv:
             return "\n"
