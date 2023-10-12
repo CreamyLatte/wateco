@@ -3,7 +3,9 @@
 
 > [!WARNING]
 > 現在、本プログラムは十分にテストされていません。
+>
 > 本ソフトウェアを利用したことで何か問題が発生した場合、作者は一切の責任を負いません。
+>
 > エラーが発生した場合はIssuesにてご報告ください。
 
 ## 対応フォーマット
@@ -92,26 +94,30 @@ wateco to-text example.wav
 #### options
 本コマンド`to-text`では、3つのオプションを設定することができます。
 1. 出力ファイルのファイル形式設定`--write-type <type>`
-  ファイル形式`<type>`は、3種から設定することができます。
-  - txt(.txt) // default
-  - data(.dat)
-  - csv(.csv)
-  `txt`, `data`に関しては拡張子の違いのみで同じテキストが出力されます。
-  `csv`の場合は、チャンネル毎に列が分かれて出力されます。
+
+   ファイル形式`<type>`は、3種から設定することができます。
+   - txt(.txt) <- default
+   - dat(.dat)
+   - csv(.csv)
+   
+   `txt`, `data`に関しては拡張子の違いのみで同じテキストが出力されます。
+   `csv`の場合は、チャンネル毎に列が分かれて出力されます。
 1. 数値データの設定`--pcm-format <pcm-format>`
-  数値データ`<pcm-format>`は、3種から設定することができます。
-  - int16 // default
-  - int32
-  - float32
-  `int16`,`int32`は、整数値で出力されそれぞれ16bit, 32bitの量子値に変換されて出力されます。
-  `float32`は、浮動小数値で出力されます。 ※ Double型には出力することができません
+   数値データ`<pcm-format>`は、3種から設定することができます。
+   - int16 // default
+   - int32
+   - float32
+   
+   `int16`,`int32`は、整数値で出力されそれぞれ16bit, 32bitの量子値に変換されて出力されます。
+   `float32`は、浮動小数値で出力されます。 ※ Double型には出力することができません
 1. 出力ファイル名の設定`--output <file>`
-  `<file>`は、出力ファイル名を任意の名前で出力することができます。
-  例:
-  ```sh set_output
-  wateco to-text -o hogehoge.txt example.wav
-  ```
-  上記例では、example.wavの数値データがhogehoge.txtに書き込まれます。
+   `<file>`は、出力ファイル名を任意の名前で出力することができます。
+
+   例:
+   ```sh set_output
+   wateco to-text -o hogehoge.txt example.wav
+   ```
+   上記例では、example.wavの数値データがhogehoge.txtに書き込まれます。
 
 
 #### USAGE(ヘルプ表示)
@@ -140,37 +146,44 @@ wateco to-wave example.txt
 上記の例では`example.wav`のモノラル音声ファイルが生成されます。
 もし、ステレオ音声の場合は`--channel 2`のオプションを追加してください。
 また、数値データが浮動小数である場合は`--pcm-format float32`のオプションを追加してください。
-そのほかの詳しいオプションについては、下記の[options]()をご覧ください。
+そのほかの詳しいオプションについては、下記の[options](#options-1)をご覧ください。
 
 #### options
 本コマンド`to-wave`では、4つのオプションを設定することができます。
+
 1. 出力ファイルの圧縮形式(拡張子)設定`--format <audio-format>`
-  圧縮形式`<audio-format>`は、3種(拡張子5種)から設定することができます。
-  - .wav(kAudioFormatLinearPCM)
-  - .aiff(kAudioFormatLinearPCM)
-  - .alac(kAudioFormatAppleLossless)
-  - .aac(kAudioFormatMPEG4AAC)
-  - .m4a(kAudioFormatMPEG4AAC)
+
+   圧縮形式`<audio-format>`は、3種(拡張子5種)から設定することができます。
+   - .wav(kAudioFormatLinearPCM) <- default
+   - .aiff(kAudioFormatLinearPCM)
+   - .alac(kAudioFormatAppleLossless)
+   - .aac(kAudioFormatMPEG4AAC)
+   - .m4a(kAudioFormatMPEG4AAC)
 1. 読み込むテキストの数値データの設定`--pcm-format <pcm-format>`
-  読み込むテキストの数値データ`<pcm-format>`は、3種から設定することができます。
-  - int16 // default
-  - int32
-  - float32
-  `int16`,`int32`は、整数値として読み込まれ指定されるbitで読み込まれます。適切でない値があった場合はエラーになります。
-  `float32`は、浮動小数値として読み込まれます。
+
+   読み込むテキストの数値データ`<pcm-format>`は、3種から設定することができます。
+   - int16 <- default
+   - int32
+   - float32
+   
+   `int16`,`int32`は、整数値として読み込まれ指定されるbitで読み込まれます。適切でない値があった場合はエラーになります。
+   `float32`は、浮動小数値として読み込まれます。
 1. サンプリング周波数設定`--sampling-rate <sampling-rate>`
-  サンプリング周波数`--sampling-rate <sampling-rate>`は、読み込むテキストデータのサンプリング周波数を設定することができます。
-  default値は`44100Hz`に設定されています。
+
+   サンプリング周波数`--sampling-rate <sampling-rate>`は、読み込むテキストデータのサンプリング周波数を設定することができます。
+   default値は`44100Hz`に設定されています。
 1. チャンネル数設定`--channel <channel>`
-  チャンネル数`<channel>`は、読み込むテキストデータのチャンネル数を設定することができます。
-  この時、**読み込むファイルがcsvファイルであってもこの項目の設定は必須です。**
+
+   チャンネル数`<channel>`は、読み込むテキストデータのチャンネル数を設定することができます。
+   この時、**読み込むファイルがcsvファイルであってもこの項目の設定は必須です。**
 1. 出力ファイル名の設定`--output <file>`
-  `<file>`は、出力ファイル名を任意の名前で出力することができます。
-  例:
-  ```sh set_output
-  wateco to-wave -o hogehoge.wav example.txt
-  ```
-  上記例では、example.txtのデータが音声ファイルhogehoge.wavに書き込まれます。
+
+   `<file>`は、出力ファイル名を任意の名前で出力することができます。
+   例:
+   ```sh set_output
+   wateco to-wave -o hogehoge.wav example.txt
+   ```
+   上記例では、example.txtのデータが音声ファイルhogehoge.wavに書き込まれます。
 
 #### USAGE(ヘルプ表示)
 ```terminal to-wave's_usage
@@ -193,6 +206,8 @@ OPTIONS:
 
 ## お問い合わせ先
 以下のメールアドレスまでダメ元でお問い合わせください。
+
 [creamylette@lattenote.info](mailto:creamylette@lattenote.info)
+
 内容に関わらず対応できない場合がありますがご了承ください。
 
