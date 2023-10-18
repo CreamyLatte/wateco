@@ -14,7 +14,6 @@
 		636EC0482A3C8045008E0AD9 /* CLTInputFileOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636EC0472A3C8045008E0AD9 /* CLTInputFileOptions.swift */; };
 		636F8FC92A372C9600EE709E /* Wateco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636F8FC82A372C9600EE709E /* Wateco.swift */; };
 		63DCB7FB2A3F53FA005F68AF /* PCMFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCB7FA2A3F53FA005F68AF /* PCMFormat.swift */; };
-		63DCB8092A400EA2005F68AF /* WatecoExampleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCB8082A400EA2005F68AF /* WatecoExampleTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,9 +37,6 @@
 		636F8FC52A372C9600EE709E /* wateco */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = wateco; sourceTree = BUILT_PRODUCTS_DIR; };
 		636F8FC82A372C9600EE709E /* Wateco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wateco.swift; sourceTree = "<group>"; };
 		63DCB7FA2A3F53FA005F68AF /* PCMFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCMFormat.swift; sourceTree = "<group>"; };
-		63DCB8062A400EA2005F68AF /* Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		63DCB8082A400EA2005F68AF /* WatecoExampleTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatecoExampleTest.swift; sourceTree = "<group>"; };
-		63DCB80D2A400F97005F68AF /* WaveTextConverter.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WaveTextConverter.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,13 +45,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				636EC0442A3819A4008E0AD9 /* ArgumentParser in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		63DCB8032A400EA2005F68AF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,9 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				6339ABB92AD39E7A00CA6A6D /* README.md */,
-				63DCB80D2A400F97005F68AF /* WaveTextConverter.xctestplan */,
 				636F8FC72A372C9600EE709E /* WaveTextConverter */,
-				63DCB8072A400EA2005F68AF /* Test */,
 				636F8FC62A372C9600EE709E /* Products */,
 				636EC0422A3819A4008E0AD9 /* Frameworks */,
 			);
@@ -85,7 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				636F8FC52A372C9600EE709E /* wateco */,
-				63DCB8062A400EA2005F68AF /* Test.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,14 +87,6 @@
 				632B35032A3CA4620064A72E /* CLTOutputFileOptions.swift */,
 			);
 			path = WaveTextConverter;
-			sourceTree = "<group>";
-		};
-		63DCB8072A400EA2005F68AF /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				63DCB8082A400EA2005F68AF /* WatecoExampleTest.swift */,
-			);
-			path = Test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,23 +112,6 @@
 			productReference = 636F8FC52A372C9600EE709E /* wateco */;
 			productType = "com.apple.product-type.tool";
 		};
-		63DCB8052A400EA2005F68AF /* Test */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 63DCB80A2A400EA2005F68AF /* Build configuration list for PBXNativeTarget "Test" */;
-			buildPhases = (
-				63DCB8022A400EA2005F68AF /* Sources */,
-				63DCB8032A400EA2005F68AF /* Frameworks */,
-				63DCB8042A400EA2005F68AF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Test;
-			productName = Test;
-			productReference = 63DCB8062A400EA2005F68AF /* Test.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -162,9 +123,6 @@
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					636F8FC42A372C9600EE709E = {
-						CreatedOnToolsVersion = 14.3.1;
-					};
-					63DCB8052A400EA2005F68AF = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
 				};
@@ -186,20 +144,9 @@
 			projectRoot = "";
 			targets = (
 				636F8FC42A372C9600EE709E /* wateco */,
-				63DCB8052A400EA2005F68AF /* Test */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		63DCB8042A400EA2005F68AF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		636F8FC12A372C9600EE709E /* Sources */ = {
@@ -212,14 +159,6 @@
 				632B35042A3CA4620064A72E /* CLTOutputFileOptions.swift in Sources */,
 				636F8FC92A372C9600EE709E /* Wateco.swift in Sources */,
 				632B35082A3D2DF40064A72E /* AVFormat.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		63DCB8022A400EA2005F68AF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				63DCB8092A400EA2005F68AF /* WatecoExampleTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,40 +310,6 @@
 			};
 			name = Release;
 		};
-		63DCB80B2A400EA2005F68AF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 92ACM6N963;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = info.lattenote.Test;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		63DCB80C2A400EA2005F68AF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 92ACM6N963;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = info.lattenote.Test;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -422,15 +327,6 @@
 			buildConfigurations = (
 				636F8FCD2A372C9600EE709E /* Debug */,
 				636F8FCE2A372C9600EE709E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		63DCB80A2A400EA2005F68AF /* Build configuration list for PBXNativeTarget "Test" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				63DCB80B2A400EA2005F68AF /* Debug */,
-				63DCB80C2A400EA2005F68AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
