@@ -8,6 +8,21 @@
 >
 > エラーが発生した場合はIssuesにてご報告ください。
 
+## 動作環境
+macOS Big Sur v.11以上
+
+## インストール方法
+[Releases](https://github.com/CreamyLatte/wateco/releases)にてビルド済みのファイルを公開しています。
+インストールはHomebrewを利用いただけると簡単にインストールが可能です。下記のインストール方法を参照してください。
+
+### Homebrewによるインストール
+あらかじめ[Homebrewのインストール](https://brew.sh/ja/)をお願いします。
+ターミナルにて下記を実行してください。
+```sh 
+brew tap CreamyLatte/tap
+brew install wateco
+```
+
 ## 対応フォーマット
 ### 対応音声ファイル
 入力に入れることができる音声ファイルは以下の通りです。
@@ -27,12 +42,6 @@
 - Float 32bit
 - Int 16bit
 - Int 32bit
-
-## 動作環境
-macOS High Sierra 10.13以上
-
-## インストール方法
-リリース後、お知らせします。
 
 ## 使い方
 本アプリケーションは、以下の2つの操作について行うことができます。
