@@ -43,6 +43,7 @@ extension Wateco {
         @OptionGroup var inputFile: InputFile
         
         mutating func validate() throws {
+            let fileManager = FileManager.default
             let inputFileExtention = inputFile.url.pathExtension
             let supportedExtensions = AVFormat.allCases.map({ $0.rawValue })
             guard supportedExtensions.contains(inputFileExtention) else {
@@ -50,17 +51,25 @@ extension Wateco {
             }
             
             if outputFile.url == nil {
-                let fileManager = FileManager.default
                 let inputFileName: String = inputFile.url.deletingPathExtension().lastPathComponent
                 outputFile.url = URL(fileURLWithPath: inputFileName).appendingPathExtension(writeTextType.rawValue)
-                
-                guard let url = outputFile.url else {
-                    throw ValidationError("Failed to create the output file path.")
-                }
+            }
+            
+            guard let url = outputFile.url else {
+                throw ValidationError("Failed to create the output file path.")
+            }
+            if !fileManager.fileExists(atPath: url.path) {
                 let writeDirectory = url.deletingLastPathComponent()
                 guard fileManager.isWritableFile(atPath: writeDirectory.path) else {
-                    throw ValidationError("'Cannot write to \(url.path)'. Please check permissions.")
+                    throw ValidationError("'Cannot create to \(url.path)'. Please check permissions at \"\(writeDirectory.absoluteString)\".")
                 }
+                let isCreated = fileManager.createFile(atPath: url.path, contents: nil)
+                guard isCreated else {
+                    throw ValidationError("Failed create file \"\(url.path)\".")
+                }
+            }
+            guard fileManager.isWritableFile(atPath: url.path) else {
+                throw ValidationError("'Cannot write to \(url.path)'. Please check permissions.")
             }
         }
         
